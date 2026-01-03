@@ -5,7 +5,9 @@ export type TokenType =
     | 'Identifier'
     | 'Keyword'
     | 'Operator'
-    | 'PunctuationMark';
+    | 'PunctuationMark'
+    | 'WhiteSpace'
+    | 'Comment';
 
 /**
  *
@@ -46,11 +48,13 @@ export type PunctuationMark = PuncuationMarks[number];
 export type JSKeywords = [
     'var',
     'let',
+
     'const',
     'typeof',
 
     'class',
     'in',
+
     'new'
 ];
 export type JSKeyword = JSKeywords[number];
