@@ -81,8 +81,65 @@ export const generate = (
             continue;
         }
 
+        // literals
         if (currentToken.type === 'StringLiteral') {
-            // generated+=
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
+                cssClasses.stringLiteral +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            tokenPos++;
+
+            continue;
+        }
+
+        if (currentToken.type === 'NumberLiteral') {
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
+                cssClasses.numberLiteral +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            tokenPos++;
+
+            continue;
+        }
+
+        if (currentToken.type === 'BooleanLiteral') {
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
+                cssClasses.booleanLiteral +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            tokenPos++;
+
+            continue;
+        }
+
+        if (currentToken.type === 'NaNLiteral') {
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
+                cssClasses.NaNLiteral +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            tokenPos++;
+
+            continue;
         }
 
         tokenPos++;
