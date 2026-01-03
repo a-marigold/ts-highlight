@@ -12,6 +12,16 @@ import {
 
 import type { Token } from './types';
 
+/**
+ * *Tokenizer* or *Lexer* function.
+ *
+ *
+ * Divides `source` to tokens.
+ *
+ * @param {string} source - javascript or typescript source code to tokenize.
+ *
+ * @returns {Token[]} array with tokens from `source`.
+ */
 export const tokenize = (source: string): Token[] => {
     const tokens: Token[] = [];
 
@@ -19,12 +29,13 @@ export const tokenize = (source: string): Token[] => {
 
     let pos = 0;
     while (pos < sourceLength) {
+        // TODO: rewrite with handle matching instead of regexp
         if (WHITESPACE_REGEXP.test(source[pos])) {
             const startPos = pos;
 
             pos++;
 
-            if (source[pos] === '\n') {
+            while (pos < sourceLength && WHITESPACE_REGEXP.test(source[pos])) {
                 pos++;
             }
 
@@ -174,7 +185,7 @@ export const tokenize = (source: string): Token[] => {
 
 const __source = `
 let a = 100; 
-const b = a instanceof Number;
+const b  = a instanceof Number;
 
 
 abstract class ABC {};
