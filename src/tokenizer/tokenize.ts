@@ -7,16 +7,9 @@ import {
     doubleOperators,
     tripleOperators,
     quadrupleOperator,
-    puncuationMarks,
 } from './constants';
 
-import type {
-    PunctuationMark,
-    PuncuationMarks,
-    Keyword,
-    Keywords,
-    Token,
-} from './types';
+import type { Keyword, Keywords, Token } from './types';
 
 const keywordsInit: Keywords = [
     'var',
@@ -44,17 +37,6 @@ const keywordsInit: Keywords = [
  * `Set` with javascript and typescript keywords. Used for tokens
  */
 const keywords = new Set<Keyword>(keywordsInit);
-
-const punctuationMarksInit: PuncuationMarks = [
-    '{',
-    '}',
-    '[',
-    ']',
-    '(',
-    ')',
-    ';',
-    ',',
-];
 
 export const tokenize = (source: string): Token[] => {
     const tokens: Token[] = [];
@@ -217,3 +199,15 @@ export const tokenize = (source: string): Token[] => {
 
     return tokens;
 };
+
+const __source = `
+let a = 100; 
+const b = a instanceof Number;
+
+
+abstract class ABC {};
+
+type a = abstract new() => string;
+`;
+
+console.log(tokenize(__source));

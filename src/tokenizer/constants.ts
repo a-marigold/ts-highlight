@@ -3,8 +3,6 @@ import type {
     DoubleOperators,
     TripleOperators,
     QuadrupleOperator,
-    PunctuationMark,
-    PuncuationMarks,
     Keyword,
     Keywords,
 } from './types';
@@ -28,6 +26,14 @@ const singleOperatorsInit: SingleOperators = [
     '!',
     '<',
     '>',
+    '{',
+    '}',
+    '[',
+    ']',
+    '(',
+    ')',
+    ';',
+    ',',
 ];
 const doubleOperatorsInit: DoubleOperators = [
     '==',
@@ -93,26 +99,6 @@ export const tripleOperators = new Set<string>(tripleOperatorsInit);
  */
 export const quadrupleOperator: QuadrupleOperator = '>>>=';
 
-// punctuation marks
-
-const puntuactionMarksInit: PuncuationMarks = [
-    '{',
-    '}',
-    '[',
-    ']',
-    '(',
-    ')',
-    ';',
-    ',',
-];
-
-/**
- * `Set` with javascript puncuation marks.
- *
- * @example '{'
- */
-export const puncuationMarks = new Set<string>(puntuactionMarksInit);
-
 // regular expresions (RegExp)
 
 /**
@@ -132,6 +118,7 @@ export const IDENTIFIER_START_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$]$/;
 /**
  * RegExp that is used to match javascript identifier symbols after the first symbol
  */
+
 export const IDENTIFIER_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$0-9]$/;
 
 /**

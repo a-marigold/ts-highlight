@@ -43,7 +43,17 @@ export type SingleOperators = [
     '?',
     '!',
     '<',
-    '>'
+    '>',
+
+    '{',
+    '}',
+    '[',
+    ']',
+    '(',
+    ')',
+
+    ';',
+    ','
 ];
 export type SingleOperator = SingleOperators[number];
 
@@ -84,9 +94,6 @@ export type TripleOperators = [
 export type TripleOperator = TripleOperators[number];
 
 export type QuadrupleOperator = '>>>=';
-
-export type PuncuationMarks = ['{', '}', '[', ']', '(', ')', ';', ','];
-export type PunctuationMark = PuncuationMarks[number];
 
 export type JSKeywords = [
     'var',
