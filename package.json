@@ -4,11 +4,17 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "lint": "biome check"
+        "lint": "biome check",
+        "build": "rollup -c"
     },
     "devDependencies": {
+        "@biomejs/biome": "^2.3.10",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^12.3.0",
         "@types/bun": "latest",
-        "@biomejs/biome": "^2.3.10"
+        "rollup": "^4.54.0",
+        "rollup-plugin-dts": "^6.3.0",
+        "tslib": "^2.8.1"
     },
     "peerDependencies": {
         "typescript": "^5"
