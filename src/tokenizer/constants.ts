@@ -1,12 +1,15 @@
 import type {
-    SingleOperator,
     SingleOperators,
-    DoubleOperator,
     DoubleOperators,
-    TripleOperator,
     TripleOperators,
     QuadrupleOperator,
+    PunctuationMark,
+    PuncuationMarks,
+    Keyword,
+    Keywords,
 } from './types';
+
+// operators
 
 const singleOperatorsInit: SingleOperators = [
     '=',
@@ -26,40 +29,86 @@ const singleOperatorsInit: SingleOperators = [
     '<',
     '>',
 ];
-export const singleOperators = new Set<string>(singleOperatorsInit);
-
 const doubleOperatorsInit: DoubleOperators = [
     '==',
     '!=',
+
     '<=',
     '>=',
+
     '++',
     '--',
     '**',
+
     '*=',
     '/=',
     '%=',
+
     '^=',
     '&=',
     '|=',
+
     '&&',
     '||',
     '??',
 ];
-
-export const doubleOperators = new Set<string>(doubleOperatorsInit);
-
 const tripleOperatorsInit: TripleOperators = [
     '===',
     '!==',
+
     '**=',
     '<<=',
     '>>=',
     '>>>',
+    '&&=',
+    '||=',
+    '??=',
 ];
+
+/**
+ * `Set` with all javascript one-symbol operators
+ *
+ * @example '='
+ */
+export const singleOperators = new Set<string>(singleOperatorsInit);
+
+/**
+ * `Set` with all javascript two-symbol operators.
+ *
+ * @example '++'
+ */
+export const doubleOperators = new Set<string>(doubleOperatorsInit);
+
+/**
+ * `Set` with all javascript three-symbol operators
+ *
+ * @example '>>>'
+ */
 export const tripleOperators = new Set<string>(tripleOperatorsInit);
 
+/**
+ * The javascript four-symbol operator.
+ *
+ * Always equals '>>>=' on December 18, 2025 ECMAScript Specification
+ */
 export const quadrupleOperator: QuadrupleOperator = '>>>=';
+
+// punctuation marks
+
+const puntuactionMarksInit: PuncuationMarks = [
+    '{',
+    '}',
+    '[',
+    ']',
+    '(',
+    ')',
+    ';',
+    ',',
+];
+/**
+ *
+ */
+export const puncuationMarks = new Set<string>(puntuactionMarksInit);
 
 /**
  * RegExp that matches any whitespace

@@ -9,15 +9,19 @@ export default defineConfig([
     {
         input: './src/index.ts',
 
+        external: ['./src/__tests__/**'],
+
         output: {
             file: './dist/index.js',
             format: 'esm',
         },
-        plugins: [typescript(), terser()],
+        plugins: [typescript({ exclude: ['**__tests__/**'] }), terser()],
     },
 
     {
         input: './src/index.ts',
+
+        external: ['./src/__tests_/**'],
 
         output: {
             file: './dist/index.d.ts',

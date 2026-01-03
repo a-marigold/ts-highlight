@@ -7,6 +7,7 @@ import {
     doubleOperators,
     tripleOperators,
     quadrupleOperator,
+    puncuationMarks,
 } from './constants';
 
 import type {
@@ -54,11 +55,6 @@ const punctuationMarksInit: PuncuationMarks = [
     ';',
     ',',
 ];
-
-/**
- * `Set` with javascript punctuation marks. Used for tokens
- */
-const punctuationMarks = new Set<PunctuationMark>(punctuationMarksInit);
 
 export const tokenize = (source: string): Token[] => {
     const tokens: Token[] = [];
@@ -215,6 +211,8 @@ export const tokenize = (source: string): Token[] => {
 
             continue;
         }
+
+        pos++;
     }
 
     return tokens;

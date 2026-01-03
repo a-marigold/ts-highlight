@@ -69,7 +69,18 @@ export type DoubleOperators = [
 ];
 export type DoubleOperator = DoubleOperators[number];
 
-export type TripleOperators = ['===', '!==', '**=', '<<=', '>>=', '>>>'];
+export type TripleOperators = [
+    '===',
+    '!==',
+    '**=',
+    '<<=',
+    '>>=',
+    '>>>',
+
+    '&&=',
+    '||=',
+    '??='
+];
 export type TripleOperator = TripleOperators[number];
 
 export type QuadrupleOperator = '>>>=';
