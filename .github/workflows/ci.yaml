@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: '**'
+
+jobs:
+  ci:
+    name: ci
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: setup bun
+      run: oven-sh/setup-bun@v4
+
+    - name: install dependencies
+      run: bun install
+
+    - name: run linter
+      run: bun run lint
