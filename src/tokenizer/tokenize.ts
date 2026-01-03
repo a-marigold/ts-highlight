@@ -54,6 +54,7 @@ const punctuationMarksInit: PuncuationMarks = [
     ';',
     ',',
 ];
+
 /**
  * `Set` with javascript punctuation marks. Used for tokens
  */
@@ -139,6 +140,74 @@ export const tokenize = (source: string): Token[] => {
 
             tokens.push({
                 type: 'NumberLiteral',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
+
+            continue;
+        }
+
+        if (singleOperators.has(source[pos])) {
+            const startPos = pos;
+
+            pos++;
+
+            tokens.push({
+                type: 'Operator',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
+
+            continue;
+        }
+
+        if (doubleOperators.has(source[pos] + source[pos + 1])) {
+            const startPos = pos;
+
+            pos += 2;
+
+            tokens.push({
+                type: 'Operator',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
+
+            continue;
+        }
+
+        if (
+            tripleOperators.has(source[pos] + source[pos + 1] + source[pos + 2])
+        ) {
+            const startPos = pos;
+
+            pos += 3;
+
+            tokens.push({
+                type: 'Operator',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
+
+            continue;
+        }
+
+        if (
+            source[pos] +
+                source[pos + 1] +
+                source[pos + 2] +
+                source[pos + 3] ===
+            quadrupleOperator
+        ) {
+            const startPos = pos;
+
+            pos += 4;
+
+            tokens.push({
+                type: 'Operator',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
