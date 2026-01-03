@@ -2,6 +2,7 @@ import {
     WHITESPACE_REGEXP,
     IDENTIFIER_START_REGEXP,
     IDENTIFIER_REGEXP,
+    NUMBER_REGEXP,
 } from './constants';
 import type {
     Operator,
@@ -144,6 +145,36 @@ export const tokenize = (source: string): Token[] => {
             });
 
             continue;
+        }
+
+        if (NUMBER_REGEXP.test(source[pos])) {
+            const startPos = pos;
+
+            while (pos < sourceLength && NUMBER_REGEXP.test(source[pos])) {
+                pos++;
+            }
+
+            tokens.push({
+                type: 'NumberLiteral',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
+
+            continue;
+        }
+
+        if (operators.has(source[pos] as Operator)) {
+            const startPos = pos;
+
+            pos++;
+
+            tokens.push({
+                type: 'Operator',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            });
         }
     }
 
