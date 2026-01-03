@@ -3,41 +3,19 @@ import {
     IDENTIFIER_START_REGEXP,
     IDENTIFIER_REGEXP,
     NUMBER_REGEXP,
+    singleOperators,
+    doubleOperators,
+    tripleOperators,
+    quadrupleOperator,
 } from './constants';
+
 import type {
-    Operator,
-    Operators,
     PunctuationMark,
     PuncuationMarks,
     Keyword,
     Keywords,
     Token,
 } from './types';
-
-const operatorsInit: Operators = [
-    '=',
-    '+',
-    '-',
-    '*',
-    '/',
-    '|',
-    '&',
-    '.',
-    ':',
-    '++',
-    '--',
-    '&&',
-    '?',
-    '||',
-    '&=',
-    '|=',
-    '&&=',
-    '||=',
-];
-/**
- * `Set` with javascript operators. Used for tokens
- */
-const operators = new Set<Operator>(operatorsInit);
 
 const keywordsInit: Keywords = [
     'var',
@@ -46,7 +24,12 @@ const keywordsInit: Keywords = [
     'typeof',
     'class',
     'in',
+
     'new',
+    'instanceof',
+    'void',
+    'delete',
+
     'keyof',
     'abstract',
 
@@ -162,19 +145,6 @@ export const tokenize = (source: string): Token[] => {
             });
 
             continue;
-        }
-
-        if (operators.has(source[pos] as Operator)) {
-            const startPos = pos;
-
-            pos++;
-
-            tokens.push({
-                type: 'Operator',
-                value: source.slice(startPos, pos),
-                start: startPos,
-                end: pos,
-            });
         }
     }
 
