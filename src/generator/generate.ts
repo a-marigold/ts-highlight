@@ -15,9 +15,7 @@ export const generate = (
 
         if (currentToken.type === 'WhiteSpace') {
             generated +=
-                '<span' +
-                ' ' +
-                'class="' +
+                '<span class="' +
                 cssClasses.token +
                 ' ' +
                 cssClasses.whitespace +
@@ -38,12 +36,40 @@ export const generate = (
 
         if (currentToken.type === 'Operator') {
             generated +=
-                '<span' +
-                ' ' +
-                'class="' +
+                '<span class="' +
                 cssClasses.token +
                 ' ' +
                 cssClasses.operator +
+                '">' +
+                currentToken.value +
+                '</span>';
+
+            tokenPos++;
+
+            continue;
+        }
+
+        if (currentToken.type === 'Identifier') {
+            generated +=
+                '<span class="' +
+                cssClasses.token +
+                ' ' +
+                cssClasses.mutableIdentifier +
+                '">' +
+                currentToken.value +
+                '</span>';
+
+            tokenPos++;
+
+            continue;
+        }
+
+        if (currentToken.type === 'Keyword') {
+            generated +=
+                '<span class="' +
+                cssClasses.token +
+                ' ' +
+                cssClasses.keyword +
                 '">' +
                 currentToken.value +
                 '</span>';

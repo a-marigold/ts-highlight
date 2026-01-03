@@ -117,6 +117,7 @@ const keywordsInit: Keywords = [
     'interface',
     'enum',
     'type',
+    'implements',
 ];
 
 /**
