@@ -1,3 +1,5 @@
+import { OPENED_SPAN_WITH_CLASS, CLOSED_SPAN } from './constants';
+
 import type { Token } from '../tokenizer';
 import type { HighlightCSSClasses } from './types';
 
@@ -15,7 +17,7 @@ export const generate = (
 
         if (currentToken.type === 'WhiteSpace') {
             generated +=
-                '<span class="' +
+                OPENED_SPAN_WITH_CLASS +
                 cssClasses.token +
                 ' ' +
                 cssClasses.whitespace +
@@ -27,7 +29,7 @@ export const generate = (
                 charPos++;
             }
 
-            generated += '</span>';
+            generated += CLOSED_SPAN;
 
             tokenPos++;
 
@@ -36,13 +38,13 @@ export const generate = (
 
         if (currentToken.type === 'Operator') {
             generated +=
-                '<span class="' +
+                OPENED_SPAN_WITH_CLASS +
                 cssClasses.token +
                 ' ' +
                 cssClasses.operator +
                 '">' +
                 currentToken.value +
-                '</span>';
+                CLOSED_SPAN;
 
             tokenPos++;
 
@@ -51,13 +53,13 @@ export const generate = (
 
         if (currentToken.type === 'Identifier') {
             generated +=
-                '<span class="' +
+                OPENED_SPAN_WITH_CLASS +
                 cssClasses.token +
                 ' ' +
                 cssClasses.mutableIdentifier +
                 '">' +
                 currentToken.value +
-                '</span>';
+                CLOSED_SPAN;
 
             tokenPos++;
 
@@ -66,17 +68,21 @@ export const generate = (
 
         if (currentToken.type === 'Keyword') {
             generated +=
-                '<span class="' +
+                OPENED_SPAN_WITH_CLASS +
                 cssClasses.token +
                 ' ' +
                 cssClasses.keyword +
                 '">' +
                 currentToken.value +
-                '</span>';
+                CLOSED_SPAN;
 
             tokenPos++;
 
             continue;
+        }
+
+        if (currentToken.type === 'StringLiteral') {
+            // generated+=
         }
 
         tokenPos++;
