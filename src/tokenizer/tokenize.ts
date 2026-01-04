@@ -32,12 +32,15 @@ export const tokenize = (source: string): Token[] => {
     main: while (pos < sourceLength) {
         // TODO: rewrite with handle matching instead of regexp
 
-        if (WHITESPACE_REGEXP.test(source[pos])) {
+        if (source[pos] === ' ' || source[pos] === '\t') {
             const startPos = pos;
 
             pos++;
 
-            while (pos < sourceLength && WHITESPACE_REGEXP.test(source[pos])) {
+            while (
+                pos < sourceLength &&
+                (source[pos] === ' ' || source[pos] === '\t')
+            ) {
                 pos++;
             }
 
@@ -50,6 +53,27 @@ export const tokenize = (source: string): Token[] => {
 
                 end: pos,
             });
+
+            continue main;
+        }
+
+        if (source[pos] === '\n' || source[pos] === '\r') {
+            const startPos = pos;
+
+            if (source[pos] === '\r') {
+                pos++;
+            }
+
+            pos++;
+
+            tokens[tokens.length] = {
+                type: 'LineDivision',
+
+                value: '\n',
+
+                start: startPos,
+                end: pos,
+            };
 
             continue main;
         }
