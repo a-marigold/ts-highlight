@@ -4,7 +4,7 @@ import type { HighlightCSSClasses } from '../generator';
 
 /**
  *
- * Returns HTML with higlighted source code from received `source`.
+ * Transforms received `source` string to HTML with higlighted source code.
  *
  * @param {string} source JavaScript or TypeScript source code to highlight.
  * @param {HiglightCSSClasses} cssClasses object with CSS classes.

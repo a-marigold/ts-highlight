@@ -1,12 +1,28 @@
 {
     "name": "es-highlight",
-    "module": "index.ts",
+    "module": "./dist/index.js",
     "type": "module",
-    "private": true,
+    "private": false,
+    "license": "UNLICENSED",
+    "author": {
+        "name": "marigold",
+        "url": "https://github.com/a-marigold"
+    },
+    "repository": {
+        "type": "github",
+        "url": "https://github.com/a-marigold/es-higlight"
+    },
     "scripts": {
         "lint": "biome check",
         "build": "rollup -c"
     },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "keywords": [
+        "es-higlight",
+        "higlight",
+        "syntax-higlight"
+    ],
     "devDependencies": {
         "@biomejs/biome": "^2.3.10",
         "@rollup/plugin-terser": "^0.4.4",
