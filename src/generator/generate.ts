@@ -142,6 +142,21 @@ export const generate = (
             continue;
         }
 
+        // comments
+        if (currentToken.type === 'Comment') {
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                cssClasses.comment +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            tokenPos++;
+
+            continue;
+        }
+
         tokenPos++;
     }
 
