@@ -18,6 +18,13 @@ export const generate = (
         cssClasses.line +
         '">';
 
+    /**
+     *
+     * Boolean flag that shows is the current line opened.
+     * Needed for closing opened line in the end of loop.
+     */
+    let isLineOpened: boolean = true;
+
     let tokenPos = 0;
     while (tokenPos < tokensLength) {
         const currentToken = tokens[tokenPos];
@@ -44,7 +51,12 @@ export const generate = (
         }
 
         if (currentToken.type === 'LineDivision') {
-            generated += '</div><div class="' + cssClasses.line + '">';
+            generated += '</div>';
+
+            if (tokenPos !== tokensLength - 1) {
+                generated += '<div class="' + cssClasses.line + '">';
+                isLineOpened = false;
+            }
 
             tokenPos++;
 
@@ -177,7 +189,11 @@ export const generate = (
         tokenPos++;
     }
 
-    generated += '</div></code></pre>';
+    if (isLineOpened) {
+        generated += '</div>';
+    }
+
+    generated += '</code></pre>';
 
     return generated;
 };

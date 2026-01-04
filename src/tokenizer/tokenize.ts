@@ -27,7 +27,6 @@ export const tokenize = (source: string): Token[] => {
 
     const sourceLength = source.length;
 
-    // TODO: rewrite tokens.push in the loop on tokens[tokens.length]
     let pos = 0;
     main: while (pos < sourceLength) {
         if (source[pos] === ' ' || source[pos] === '\t') {
@@ -42,7 +41,7 @@ export const tokenize = (source: string): Token[] => {
                 pos++;
             }
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'WhiteSpace',
 
                 value: source.slice(startPos, pos),
@@ -50,7 +49,7 @@ export const tokenize = (source: string): Token[] => {
                 start: startPos,
 
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -79,7 +78,6 @@ export const tokenize = (source: string): Token[] => {
         // literals
         if (IDENTIFIER_START_REGEXP.test(source[pos])) {
             const startPos = pos;
-
             pos++;
 
             while (pos < sourceLength && IDENTIFIER_REGEXP.test(source[pos])) {
@@ -88,12 +86,12 @@ export const tokenize = (source: string): Token[] => {
 
             const identifier = source.slice(startPos, pos);
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: keywords.has(identifier) ? 'Keyword' : 'Identifier',
                 value: identifier,
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -110,12 +108,12 @@ export const tokenize = (source: string): Token[] => {
 
             pos++;
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'StringLiteral',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -126,12 +124,12 @@ export const tokenize = (source: string): Token[] => {
                 pos++;
             }
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'NumberLiteral',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -186,7 +184,6 @@ export const tokenize = (source: string): Token[] => {
                     pos < sourceLength &&
                     !(source[pos] === '*' && source[pos + 1] === '/')
                 ) {
-                    // console.log(`${pos}`, source[pos]);
                     if (source[pos] === '\n' || source[pos] === '\r') {
                         tokens[tokens.length] = {
                             type: 'Comment',
@@ -235,12 +232,12 @@ export const tokenize = (source: string): Token[] => {
 
             pos++;
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'Operator',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -250,12 +247,12 @@ export const tokenize = (source: string): Token[] => {
 
             pos += 2;
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'Operator',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -267,12 +264,12 @@ export const tokenize = (source: string): Token[] => {
 
             pos += 3;
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'Operator',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }
@@ -288,12 +285,12 @@ export const tokenize = (source: string): Token[] => {
 
             pos += 4;
 
-            tokens.push({
+            tokens[tokens.length] = {
                 type: 'Operator',
                 value: source.slice(startPos, pos),
                 start: startPos,
                 end: pos,
-            });
+            };
 
             continue main;
         }

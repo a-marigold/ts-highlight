@@ -1,7 +1,7 @@
 /**
  * String with opened `span` HTML element with opened `class` attribute.
  *
- * There is double qoute `"` in `class` attribute
+ * There is double quote `"` in `class` attribute
  *
  * @example
  * ```typescript
