@@ -29,7 +29,7 @@ export const tokenize = (source: string): Token[] => {
 
     // TODO: rewrite tokens.push in the loop on tokens[tokens.length]
     let pos = 0;
-    while (pos < sourceLength) {
+    main: while (pos < sourceLength) {
         // TODO: rewrite with handle matching instead of regexp
 
         if (WHITESPACE_REGEXP.test(source[pos])) {
@@ -51,7 +51,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         // literals
@@ -73,7 +73,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         if (source[pos] === "'" || source[pos] === '"' || source[pos] === '`') {
@@ -95,7 +95,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
         if (NUMBER_REGEXP.test(source[pos])) {
             const startPos = pos;
@@ -111,9 +111,8 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
-
         // comments
         if (source[pos] === '/') {
             const startPos = pos;
@@ -152,7 +151,7 @@ export const tokenize = (source: string): Token[] => {
                     end: pos,
                 };
 
-                continue;
+                continue main;
             }
 
             if (source[pos] === '*') {
@@ -203,7 +202,7 @@ export const tokenize = (source: string): Token[] => {
                     end: pos,
                 };
 
-                continue;
+                continue main;
             }
         }
 
@@ -220,7 +219,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         if (doubleOperators.has(source[pos] + source[pos + 1])) {
@@ -235,7 +234,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         if (
@@ -252,7 +251,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         if (
@@ -273,7 +272,7 @@ export const tokenize = (source: string): Token[] => {
                 end: pos,
             });
 
-            continue;
+            continue main;
         }
 
         pos++;
