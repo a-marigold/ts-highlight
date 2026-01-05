@@ -20,12 +20,14 @@ import type { HighlightCSSClasses } from '../generator';
  *   code: 'my-code-element-class',
  *
  *   line: 'line-class my-line third-class',
+ *
  *   token: 'token-class',
  *
  *   operator: 'operator-class',
  *
  *   keyword: 'keyword-class',
  *   stringLiteral: 'string-class',
+ *
  *
  *   ...
  * }
@@ -46,9 +48,5 @@ export const highlight = (
 
     cssClasses: HighlightCSSClasses
 ): string => {
-    const tokens = tokenize(source);
-
-    const generated = generate(tokens, cssClasses);
-
-    return generated;
+    return generate(tokenize(source), cssClasses);
 };

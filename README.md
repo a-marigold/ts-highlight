@@ -36,7 +36,6 @@ const cssClasses: HiglightCSSClasses = {
 
     whitespace: 'whitespace', // even whitespace has its own class
 
-
     ...
 };
 

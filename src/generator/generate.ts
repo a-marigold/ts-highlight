@@ -1,4 +1,8 @@
-import { OPENED_SPAN_WITH_CLASS, CLOSED_SPAN } from './constants';
+import {
+    OPENED_SPAN_WITH_CLASS,
+    CLOSED_SPAN,
+    defaultCssClasses,
+} from './constants';
 
 import type { Token } from '../tokenizer';
 import type { HighlightCSSClasses } from './types';
@@ -11,10 +15,14 @@ export const generate = (
 
     let generated: string =
         '<pre class="' +
+        defaultCssClasses.pre +
+        ' ' +
         cssClasses.pre +
         '"><code class="' +
         cssClasses.code +
         '"><div class="' +
+        defaultCssClasses.line +
+        ' ' +
         cssClasses.line +
         '">';
 
@@ -35,15 +43,9 @@ export const generate = (
                 cssClasses.token +
                 ' ' +
                 cssClasses.whitespace +
-                '">';
-
-            let charPos = 0;
-            while (charPos < currentToken.value.length) {
-                generated += ' ';
-                charPos++;
-            }
-
-            generated += CLOSED_SPAN;
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
 
             tokenPos++;
 
@@ -54,8 +56,13 @@ export const generate = (
             generated += '</div>';
 
             if (tokenPos !== tokensLength - 1) {
-                generated += '<div class="' + cssClasses.line + '">';
-                isLineOpened = false;
+                generated +=
+                    '<div class="' +
+                    defaultCssClasses.line +
+                    ' ' +
+                    cssClasses.line +
+                    '">';
+                // isLineOpened = false;
             }
 
             tokenPos++;

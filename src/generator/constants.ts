@@ -1,3 +1,7 @@
+import type { HighlightCSSClasses } from './types';
+
+import defaultStyles from './defaults.module.css';
+
 /**
  * String with opened `span` HTML element with opened `class` attribute.
  *
@@ -23,3 +27,8 @@ export const OPENED_SPAN_WITH_CLASS = '<span class="';
  * ```
  */
 export const CLOSED_SPAN = '</span>';
+
+export const defaultCssClasses: HighlightCSSClasses = {
+    pre: defaultStyles.pre,
+    line: defaultStyles.line,
+};

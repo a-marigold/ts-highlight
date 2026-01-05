@@ -1,0 +1,11 @@
+.pre {
+    margin: 0;
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+.line {
+    line-height: 1.25rem;
+
+    cursor: text;
+}
