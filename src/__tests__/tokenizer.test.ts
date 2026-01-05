@@ -14,7 +14,7 @@ describe('tokenizer', () => {
         const tokens = tokenize(source);
 
         console.log(tokens);
-        expect(tokens.length).toBe(26);
+        expect(tokens.length).toBe(25);
         expect(
             tokens.some(
                 (token) => token.type === 'Operator' && token.value === '++'

@@ -21,6 +21,9 @@ jobs:
     - name: run linter
       run: bun run lint
 
+    - name: run tests
+      run: bun test
+
     - name: build
 
       run: bun run build

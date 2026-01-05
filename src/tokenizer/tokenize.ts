@@ -227,25 +227,16 @@ export const tokenize = (source: string): Token[] => {
         }
 
         // operators
-        if (singleOperators.has(source[pos])) {
+        if (
+            source[pos] +
+                source[pos + 1] +
+                source[pos + 2] +
+                source[pos + 3] ===
+            quadrupleOperator
+        ) {
             const startPos = pos;
 
-            pos++;
-
-            tokens[tokens.length] = {
-                type: 'Operator',
-                value: source.slice(startPos, pos),
-                start: startPos,
-                end: pos,
-            };
-
-            continue main;
-        }
-
-        if (doubleOperators.has(source[pos] + source[pos + 1])) {
-            const startPos = pos;
-
-            pos += 2;
+            pos += 4;
 
             tokens[tokens.length] = {
                 type: 'Operator',
@@ -274,16 +265,25 @@ export const tokenize = (source: string): Token[] => {
             continue main;
         }
 
-        if (
-            source[pos] +
-                source[pos + 1] +
-                source[pos + 2] +
-                source[pos + 3] ===
-            quadrupleOperator
-        ) {
+        if (doubleOperators.has(source[pos] + source[pos + 1])) {
             const startPos = pos;
 
-            pos += 4;
+            pos += 2;
+
+            tokens[tokens.length] = {
+                type: 'Operator',
+                value: source.slice(startPos, pos),
+                start: startPos,
+                end: pos,
+            };
+
+            continue main;
+        }
+
+        if (singleOperators.has(source[pos])) {
+            const startPos = pos;
+
+            pos++;
 
             tokens[tokens.length] = {
                 type: 'Operator',
