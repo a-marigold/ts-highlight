@@ -26,13 +26,6 @@ export const generate = (
         cssClasses.line +
         '">';
 
-    /**
-     *
-     * Boolean flag that shows is the current line opened.
-     * Needed for closing opened line in the end of loop.
-     */
-    let isLineOpened: boolean = true;
-
     let tokenPos = 0;
     while (tokenPos < tokensLength) {
         const currentToken = tokens[tokenPos];
@@ -53,16 +46,17 @@ export const generate = (
         }
 
         if (currentToken.type === 'LineDivision') {
-            generated += '</div>';
+            generated += ' </div>';
 
-            if (tokenPos !== tokensLength - 1) {
-                generated +=
-                    '<div class="' +
-                    defaultCssClasses.line +
-                    ' ' +
-                    cssClasses.line +
-                    '">';
-                // isLineOpened = false;
+            generated +=
+                '<div class="' +
+                defaultCssClasses.line +
+                ' ' +
+                cssClasses.line +
+                '">';
+
+            if (tokenPos === tokensLength - 1) {
+                generated += ' </div>';
             }
 
             tokenPos++;
@@ -121,7 +115,7 @@ export const generate = (
                 cssClasses.token +
                 ' ' +
                 cssClasses.instruction +
-                '>' +
+                '">' +
                 currentToken.value +
                 CLOSED_SPAN;
 
@@ -153,10 +147,22 @@ export const generate = (
                 ' ' +
                 cssClasses.number +
                 '">' +
-                currentToken.value +
-                CLOSED_SPAN;
+                currentToken.value;
 
             tokenPos++;
+
+            if (tokens[tokenPos].value === 'n') {
+                generated +=
+                    CLOSED_SPAN +
+                    OPENED_SPAN_WITH_CLASS +
+                    cssClasses.token +
+                    ' ' +
+                    cssClasses.bigintChar +
+                    '">' +
+                    tokens[tokenPos].value;
+            }
+
+            generated += CLOSED_SPAN;
 
             continue;
         }
@@ -194,6 +200,8 @@ export const generate = (
         if (currentToken.type === 'UndefinedLiteral') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
                 cssClasses.undefined +
                 '">' +
                 currentToken.value +
@@ -208,6 +216,7 @@ export const generate = (
             generated +=
                 OPENED_SPAN_WITH_CLASS +
                 cssClasses.token +
+                ' ' +
                 cssClasses.null +
                 '">' +
                 currentToken.value +
@@ -238,11 +247,7 @@ export const generate = (
         tokenPos++;
     }
 
-    if (isLineOpened) {
-        generated += '</div>';
-    }
-
-    generated += '</code></pre>';
+    generated += '</div></code></pre>';
 
     return generated;
 };

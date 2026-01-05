@@ -32,8 +32,8 @@ const cssClasses: HiglightCSSClasses = {
     keyword: 'keyword',
 
     bigintChar: 'bigint-class', // class of bigint character (`10n` - `n` is `bigintChar`)
-    stringLiteral: 'string',
 
+    string: 'string',
     whitespace: 'whitespace', // even whitespace has its own class
 
     ...

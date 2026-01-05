@@ -1,6 +1,6 @@
 {
     "name": "ts-highlight",
-    "version": "1.1.2",
+    "version": "2.0.0",
     "module": "./dist/index.js",
     "type": "module",
     "private": false,

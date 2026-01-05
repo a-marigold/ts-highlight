@@ -66,7 +66,7 @@ export const tokenize = (source: string): Token[] => {
             tokens[tokens.length] = {
                 type: 'LineDivision',
 
-                value: '\n',
+                value: '',
 
                 start: startPos,
                 end: pos,
