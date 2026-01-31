@@ -16,6 +16,7 @@ s
 # output
 dist
 *.tgz
+.turbo
 
 # development 
 __dev__

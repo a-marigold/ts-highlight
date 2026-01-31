@@ -13,7 +13,8 @@
         "lint": "biome check",
         "build": "rollup -c",
         "prepublishOnly": "bun run build",
-        "pshPub": "bun publish --access public"
+        "pshPub": "bun publish --access public",
+        "test": "bun test"
     },
     "repository": {
         "type": "git",
@@ -39,14 +40,6 @@
         "dist"
     ],
     "devDependencies": {
-        "@rollup/plugin-terser": "^0.4.4",
-        "@rollup/plugin-typescript": "^12.3.0",
-        "@types/bun": "latest",
-        "rollup": "^4.54.0",
-        "rollup-plugin-dts": "^6.3.0",
-        "tslib": "^2.8.1"
-    },
-    "peerDependencies": {
-        "typescript": "^5"
+        "ts-higlight": "workspace:*"
     }
 }

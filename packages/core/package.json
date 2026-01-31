@@ -13,7 +13,8 @@
         "lint": "biome check",
         "build": "rollup -c",
         "prepublishOnly": "bun run build",
-        "pshPub": "bun publish --access public"
+        "pshPub": "bun publish --access public",
+        "test": "bun test"
     },
     "repository": {
         "type": "git",
@@ -33,8 +34,7 @@
         "ts-highlight",
         "highlight",
         "syntax-highlight",
-        "highlighter",
-        "themes"
+        "highlighter"
     ],
     "files": [
         "dist"
