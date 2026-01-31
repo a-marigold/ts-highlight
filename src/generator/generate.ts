@@ -1,28 +1,20 @@
-import {
-    OPENED_SPAN_WITH_CLASS,
-    CLOSED_SPAN,
-    defaultCssClasses,
-} from './constants';
+import { OPENED_SPAN_WITH_CLASS, CLOSED_SPAN } from './constants';
 
 import type { Token } from '../tokenizer';
 import type { HighlightCSSClasses } from './types';
 
 export const generate = (
     tokens: Token[],
-    cssClasses: HighlightCSSClasses
+    cssClasses: HighlightCSSClasses,
 ): string => {
     const tokensLength = tokens.length;
 
     let generated: string =
         '<pre class="' +
-        defaultCssClasses.pre +
-        ' ' +
         cssClasses.pre +
         '"><code class="' +
         cssClasses.code +
         '"><div class="' +
-        defaultCssClasses.line +
-        ' ' +
         cssClasses.line +
         '">';
 
@@ -48,12 +40,7 @@ export const generate = (
         if (currentToken.type === 'LineDivision') {
             generated += ' </div>';
 
-            generated +=
-                '<div class="' +
-                defaultCssClasses.line +
-                ' ' +
-                cssClasses.line +
-                '">';
+            generated += '<div class="' + cssClasses.line + '">';
 
             if (tokenPos === tokensLength - 1) {
                 generated += ' </div>';
@@ -160,6 +147,8 @@ export const generate = (
                     cssClasses.bigintChar +
                     '">' +
                     tokens[tokenPos].value;
+
+                tokenPos++;
             }
 
             generated += CLOSED_SPAN;
@@ -227,7 +216,6 @@ export const generate = (
             continue;
         }
 
-        // comments
         if (currentToken.type === 'Comment') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
