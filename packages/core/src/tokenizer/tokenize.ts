@@ -2,14 +2,9 @@ import {
     IDENTIFIER_START_REGEXP,
     IDENTIFIER_REGEXP,
     NUMBER_REGEXP,
-    singleOperators,
-    doubleOperators,
-    tripleOperators,
-    quadrupleOperator,
-    identifierLikeMap,
 } from './constants';
 
-import type { Token, IdentifierLike, TokenizeConfig } from './types';
+import type { Token, IdentifierLike, LanguageConfig } from './types';
 
 /**
  *
@@ -18,9 +13,15 @@ import type { Token, IdentifierLike, TokenizeConfig } from './types';
  *
  * @param {string} source javascript or typescript source code to tokenize.
  *
+ * @param {LanguageConfig} languageConfig Configuration for programming language syntax with keywords, instructions and the like.
+ *
  * @returns {Token[]} Array with tokens from `source`.
+ *
  */
-export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
+export const tokenize = (
+    source: string,
+    languageConfig: LanguageConfig,
+): Token[] => {
     const tokens: Token[] = [];
 
     const sourceLength = source.length;
@@ -75,7 +76,6 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
             continue main;
         }
 
-        // literals
         if (IDENTIFIER_START_REGEXP.test(char)) {
             const startPos = pos;
             pos++;
@@ -88,8 +88,9 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
 
             tokens[tokens.length] = {
                 type:
-                    identifierLikeMap[identifier as IdentifierLike] ??
-                    'Identifier',
+                    languageConfig.identifierLikeTokens[
+                        identifier as IdentifierLike
+                    ] ?? 'Identifier',
                 value: identifier,
                 start: startPos,
                 end: pos,
@@ -230,11 +231,12 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
 
         // operators
         if (
-            source[pos] +
-                source[pos + 1] +
-                source[pos + 2] +
-                source[pos + 3] ===
-            quadrupleOperator
+            languageConfig.quadrupleOperators.has(
+                source[pos] +
+                    source[pos + 1] +
+                    source[pos + 2] +
+                    source[pos + 3],
+            )
         ) {
             const startPos = pos;
 
@@ -251,7 +253,9 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
         }
 
         if (
-            tripleOperators.has(source[pos] + source[pos + 1] + source[pos + 2])
+            languageConfig.tripleOperators.has(
+                source[pos] + source[pos + 1] + source[pos + 2],
+            )
         ) {
             const startPos = pos;
 
@@ -267,7 +271,7 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
             continue main;
         }
 
-        if (doubleOperators.has(source[pos] + source[pos + 1])) {
+        if (languageConfig.doubleOperators.has(source[pos] + source[pos + 1])) {
             const startPos = pos;
 
             pos += 2;
@@ -282,7 +286,7 @@ export const tokenize = (source: string, config: TokenizeConfig): Token[] => {
             continue main;
         }
 
-        if (singleOperators.has(source[pos])) {
+        if (languageConfig.singleOperators.has(source[pos])) {
             const startPos = pos;
 
             pos++;

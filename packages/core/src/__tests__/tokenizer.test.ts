@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'bun:test';
 
 import { tokenize } from '../tokenizer';
+import type { LanguageConfig } from '../tokenizer/types';
+
+const configuration: LanguageConfig = {};
 
 describe('tokenizer', () => {
     it('should return a valid tokens array', () => {
@@ -10,7 +13,6 @@ describe('tokenizer', () => {
         
         console.log(num++);
         `;
-
         const tokens = tokenize(source);
 
         expect(tokens.length).toBe(25);

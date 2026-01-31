@@ -2,9 +2,7 @@ type LiteralTokenType =
     | 'NumberLiteral'
     | 'StringLiteral'
     | 'BooleanLiteral'
-    | 'NaNLiteral'
-    | 'NullLiteral'
-    | 'UndefinedLiteral';
+    | 'SentinelLiteral';
 
 /**
  * Variety of `Token` types
@@ -19,9 +17,6 @@ export type TokenType =
     | 'Instruction'
     | LiteralTokenType;
 
-/**
- *
- */
 export type Token = {
     type: TokenType;
     value: string;
@@ -63,7 +58,7 @@ export type SingleOperators = [
     ')',
 
     ';',
-    ','
+    ',',
 ];
 export type SingleOperator = SingleOperators[number];
 
@@ -85,7 +80,7 @@ export type DoubleOperators = [
 
     '&&',
     '||',
-    '??'
+    '??',
 ];
 export type DoubleOperator = DoubleOperators[number];
 
@@ -100,7 +95,7 @@ export type TripleOperators = [
 
     '&&=',
     '||=',
-    '??='
+    '??=',
 ];
 export type TripleOperator = TripleOperators[number];
 
@@ -126,7 +121,7 @@ export type JSKeywords = [
 
     'this',
 
-    'debugger'
+    'debugger',
 ];
 export type JSKeyword = JSKeywords[number];
 export type TSKeywords = [
@@ -136,7 +131,7 @@ export type TSKeywords = [
     'enum',
     'type',
     'implements',
-    'declare'
+    'declare',
 ];
 export type TSKeyword = TSKeywords[number];
 
@@ -168,33 +163,29 @@ type JSInstruction =
 type TSInstruction = 'as' | 'asserts' | 'is';
 export type Instruction = JSInstruction | TSInstruction;
 
-type Literal = 'true' | 'false' | 'NaN' | 'null' | 'undefined';
-
 /**
- * Token Types that are like `Identifier` TokenType
+ *
+ * Token types, the values of which are like `Identifier` Token
+ * Used to determine correct `TokenType` in tokenizer.
+ *
+ * @example
+ *
+ *
+ *
+ *
+ * ```typescript
+ * undefined; // `undefined` is not an identifier so `undefined` should be `IdentifierLike`
+ * ```
  */
-export type IdentifierLike = Keyword | Instruction | Literal;
+export type IdentifierLike = Extract<
+    TokenType,
+    'Keyword' | 'Instruction' | 'BooleanLiteral' | 'SentinelLiteral'
+>;
 
 /**
- * Record with Token Types that are like `Identifier` TokenType.
- * Used to determine correct TokenType
- */
-export type IdentifierLikeMap = {
-    [K in IdentifierLike]: Extract<
-        TokenType,
-        | 'Keyword'
-        | 'Instruction'
-        | 'BooleanLiteral'
-        | 'NaNLiteral'
-        | 'NullLiteral'
-        | 'UndefinedLiteral'
-    >;
-};
-
-/**
+ *
  *
  * Type that contains `TokenType` values to be checked in tokenizer.
- *
  *
  * @example
  * ```typescript
@@ -204,3 +195,33 @@ export type IdentifierLikeMap = {
  * ```
  */
 export type TokenSet = Set<string>;
+
+/**
+ * Type of object that contains tokens which values are like `Identifier`
+ * Used to determine
+ */
+export type IdentifierLikeTokens = LanguageConfigProperty<IdentifierLike>;
+
+/**
+ * Type of property in {@link LanguageConfig}
+ */
+type LanguageConfigProperty<T extends string> = { [key: string]: T };
+
+/**
+ * Type of `languageConfig` parameter in `tokenize`.
+ * Contains main configuration for programming languages syntax
+ *
+ *
+ *
+ *
+ */
+export type LanguageConfig = {
+    identifierLikeTokens: IdentifierLikeTokens;
+
+    singleOperators: TokenSet;
+    doubleOperators: TokenSet;
+
+    tripleOperators: TokenSet;
+
+    quadrupleOperators: TokenSet;
+};

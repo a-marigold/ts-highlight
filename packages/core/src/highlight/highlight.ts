@@ -1,4 +1,5 @@
 import { tokenize } from '../tokenizer';
+import type { LanguageConfig } from '../tokenizer/types';
 
 import { generate } from '../generator';
 import type { HighlightCSSClasses } from '../generator';
@@ -53,8 +54,9 @@ import type { HighlightCSSClasses } from '../generator';
 
 export const highlight = (
     source: string,
+    languageConfig: LanguageConfig,
 
     cssClasses?: HighlightCSSClasses,
 ): string => {
-    return generate(tokenize(source), cssClasses || {});
+    return generate(tokenize(source, languageConfig), cssClasses || {});
 };

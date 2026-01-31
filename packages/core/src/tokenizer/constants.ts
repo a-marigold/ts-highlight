@@ -4,7 +4,7 @@ import type {
     DoubleOperators,
     TripleOperators,
     QuadrupleOperator,
-    IdentifierLikeMap,
+    IdentifierLikeTokens,
 } from './types';
 
 // operators
@@ -119,15 +119,16 @@ export const quadrupleOperator: QuadrupleOperator = '>>>=';
  *
  * ```
  */
-export const identifierLikeMap: IdentifierLikeMap = {
+
+export const identifierLikeTokens: IdentifierLikeTokens = {
     // literals
-    NaN: 'NaNLiteral',
+    NaN: 'SentinelLiteral',
     false: 'BooleanLiteral',
     true: 'BooleanLiteral',
-    null: 'NullLiteral',
-    undefined: 'UndefinedLiteral',
+    null: 'SentinelLiteral',
+    undefined: 'SentinelLiteral',
 
-    // 🟣 Keywords
+    // keywords
 
     abstract: 'Keyword',
     class: 'Keyword',
@@ -185,20 +186,25 @@ export const identifierLikeMap: IdentifierLikeMap = {
 // regular expresions (RegExp)
 
 /**
- * RegExp that is used to match javascript identifier start symbol
+ * RegExp that is used to match identifier start symbol
  *
  */
 
-export const IDENTIFIER_START_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$]$/;
+export const IDENTIFIER_START_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$#]$/;
 
 /**
- * RegExp that is used to match javascript identifier symbols after the first symbol
+ * RegExp that is used to match identifier symbols after the first symbol
  */
 
 export const IDENTIFIER_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$0-9]$/;
 
 /**
- *
- * RegExp that is used to match any number
+ * RegExp that is used to match start symbol of number
  */
-export const NUMBER_REGEXP: RegExp = /^[0-9]$/;
+export const NUMBER_START_REGEXP: RegExp = /^[0-9]$/;
+
+/**
+ *
+ * RegExp that is used to match a number
+ */
+export const NUMBER_REGEXP: RegExp = /^[0-9_]$/;
