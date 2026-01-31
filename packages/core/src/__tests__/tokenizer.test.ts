@@ -11,6 +11,8 @@ describe('tokenizer', () => {
         let num = 10;
 
         
+
+
         console.log(num++);
         `;
         const tokens = tokenize(source);
@@ -41,9 +43,10 @@ describe('tokenizer', () => {
 
     it('should handle CRLF and LF line feeds to `LineDivision` token', () => {
         const CRLFSource = '\r\n'.repeat(6);
-        const LFSource = '\n\n\n\n\n\n';
+        const LFSource = '\n'.repeat(6);
 
         const CRLFTokens = tokenize(CRLFSource);
+
         const LFTokens = tokenize(LFSource);
 
         expect(CRLFTokens.length).toBe(CRLFSource.length / 2);

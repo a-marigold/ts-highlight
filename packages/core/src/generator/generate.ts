@@ -8,7 +8,12 @@ import type { HighlightCSSClasses } from './types';
  *
  * @param {Token[]} tokens Array with language tokens (from `tokenize` function).
  * @param {HighlightCSSClasses} cssClasses Object with CSS classes for generated HTML
+ *
  * @returns {stirng} Generated HTML string
+ *
+ *
+ *
+ *
  */
 export const generate = (
     tokens: Token[],
@@ -26,9 +31,9 @@ export const generate = (
         cssClasses.line +
         '">';
 
-    let tokenPos = 0;
-    while (tokenPos < tokensLength) {
-        const currentToken = tokens[tokenPos];
+    let pos = 0;
+    while (pos < tokensLength) {
+        const currentToken = tokens[pos];
 
         if (currentToken.type === 'WhiteSpace') {
             generated +=
@@ -40,7 +45,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -50,11 +55,11 @@ export const generate = (
 
             generated += '<div class="' + cssClasses.line + '">';
 
-            if (tokenPos === tokensLength - 1) {
+            if (pos === tokensLength - 1) {
                 generated += ' </div>';
             }
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -69,7 +74,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -84,7 +89,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -99,7 +104,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -114,7 +119,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -130,7 +135,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -144,9 +149,9 @@ export const generate = (
                 '">' +
                 currentToken.value;
 
-            tokenPos++;
+            pos++;
 
-            if (tokens[tokenPos].value === 'n') {
+            if (tokens[pos].value === 'n') {
                 generated +=
                     CLOSED_SPAN +
                     OPENED_SPAN_WITH_CLASS +
@@ -154,12 +159,27 @@ export const generate = (
                     ' ' +
                     cssClasses.bigintChar +
                     '">' +
-                    tokens[tokenPos].value;
+                    tokens[pos].value;
 
-                tokenPos++;
+                pos++;
             }
 
             generated += CLOSED_SPAN;
+
+            continue;
+        }
+
+        if (currentToken.type === 'SentinelLiteral') {
+            generated +=
+                OPENED_SPAN_WITH_CLASS +
+                cssClasses.token +
+                ' ' +
+                cssClasses.sentinel +
+                '">' +
+                currentToken.value +
+                CLOSED_SPAN;
+
+            pos++;
 
             continue;
         }
@@ -174,52 +194,7 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
-
-            continue;
-        }
-
-        if (currentToken.type === 'NaNLiteral') {
-            generated +=
-                OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
-                cssClasses.NaN +
-                '">' +
-                currentToken.value +
-                CLOSED_SPAN;
-
-            tokenPos++;
-
-            continue;
-        }
-
-        if (currentToken.type === 'UndefinedLiteral') {
-            generated +=
-                OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
-                cssClasses.undefined +
-                '">' +
-                currentToken.value +
-                CLOSED_SPAN;
-
-            tokenPos++;
-
-            continue;
-        }
-
-        if (currentToken.type === 'NullLiteral') {
-            generated +=
-                OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
-                cssClasses.null +
-                '">' +
-                currentToken.value +
-                CLOSED_SPAN;
-
-            tokenPos++;
+            pos++;
 
             continue;
         }
@@ -234,13 +209,13 @@ export const generate = (
                 currentToken.value +
                 CLOSED_SPAN;
 
-            tokenPos++;
+            pos++;
 
             continue;
         }
 
         // fallback
-        tokenPos++;
+        pos++;
     }
 
     generated += '</div></code></pre>';

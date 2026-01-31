@@ -70,8 +70,19 @@ export type HighlightCSSClasses = Partial<{
     number: string;
     string: string;
     boolean: string;
-    NaN: string;
+    /**
+     * `sentinel` means an empty value in programming languages (`null`, `undefined`, `NaN`, `nil`).
+     *
+     * @example
+     *
+     *
+     *
+     *
+     *
+     * ```markdown
+     * `nil` in go, `null` in javascript
+     * ```
+     */
+    sentinel: string;
     bigintChar: string;
-    null: string;
-    undefined: string;
 }>;
