@@ -1,8 +1,10 @@
 import { tokenize } from '../tokenizer';
+
 import { generate } from '../generator';
 import type { HighlightCSSClasses } from '../generator';
 
 /**
+ *
  *
  * Transforms received `source` string to HTML with higlighted source code.
  *
@@ -14,7 +16,8 @@ import type { HighlightCSSClasses } from '../generator';
  * @returns {string} string with HTML of highlighted code.
  *
  * @example
- * ```typescript
+ *
+ * ```typescripts
  * const cssClasses: HighlightCSSClasses = {
  *   pre: 'pre-element-class second-class',
  *   code: 'my-code-element-class',
@@ -43,10 +46,11 @@ import type { HighlightCSSClasses } from '../generator';
  * </pre>
  * ```
  */
+
 export const highlight = (
     source: string,
 
-    cssClasses: HighlightCSSClasses
+    cssClasses?: HighlightCSSClasses,
 ): string => {
-    return generate(tokenize(source), cssClasses);
+    return generate(tokenize(source), cssClasses || {});
 };

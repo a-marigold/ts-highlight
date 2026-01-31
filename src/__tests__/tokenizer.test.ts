@@ -13,12 +13,11 @@ describe('tokenizer', () => {
 
         const tokens = tokenize(source);
 
-        console.log(tokens);
         expect(tokens.length).toBe(25);
         expect(
             tokens.some(
-                (token) => token.type === 'Operator' && token.value === '++'
-            )
+                (token) => token.type === 'Operator' && token.value === '++',
+            ),
         ).toBe(true);
     });
 
@@ -39,14 +38,15 @@ describe('tokenizer', () => {
     });
 
     it('should handle CRLF and LF line feeds to `LineDivision` token', () => {
-        const CRLFSource = '\r\n\r\n\r\n\r\n\r\n\r\n';
+        const CRLFSource = '\r\n'.repeat(6);
         const LFSource = '\n\n\n\n\n\n';
 
         const CRLFTokens = tokenize(CRLFSource);
         const LFTokens = tokenize(LFSource);
 
         expect(CRLFTokens.length).toBe(CRLFSource.length / 2);
-        for (let i = CRLFTokens.length - 1; i > 0; i--) {
+
+        for (let i = 0; i < CRLFTokens.length; i++) {
             expect(CRLFTokens[i].type).toBe('LineDivision');
         }
 
