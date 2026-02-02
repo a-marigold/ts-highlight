@@ -1,8 +1,4 @@
-import {
-    IDENTIFIER_START_REGEXP,
-    IDENTIFIER_REGEXP,
-    NUMBER_REGEXP,
-} from './constants';
+import { IDENTIFIER_START_REGEXP, IDENTIFIER_REGEXP } from './constants';
 
 import type { Token, IdentifierLike, LanguageConfig } from './types';
 
@@ -120,10 +116,13 @@ export const tokenize = (
 
             continue main;
         }
-        if (NUMBER_REGEXP.test(char)) {
+        if (char >= '0' && char <= '9') {
             const startPos = pos;
 
-            while (pos < sourceLength && NUMBER_REGEXP.test(source[pos])) {
+            while (
+                pos < sourceLength &&
+                ((char >= '0' && char <= '9') || char === '_')
+            ) {
                 pos++;
             }
 

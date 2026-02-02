@@ -197,14 +197,3 @@ export const IDENTIFIER_START_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$#]$/;
  */
 
 export const IDENTIFIER_REGEXP: RegExp = /^[a-zA-Zа-яА-Я_$0-9]$/;
-
-/**
- * RegExp that is used to match start symbol of number
- */
-export const NUMBER_START_REGEXP: RegExp = /^[0-9]$/;
-
-/**
- *
- * RegExp that is used to match a number
- */
-export const NUMBER_REGEXP: RegExp = /^[0-9_]$/;

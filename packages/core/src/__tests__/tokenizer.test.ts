@@ -38,6 +38,7 @@ describe('tokenizer', () => {
 
         expect(spaceTokens.length).toBe(1);
         expect(spaceTokens[0].type).toBe('WhiteSpace');
+
         expect(spaceTokens[0].value.length).toBe(spaceSource.length);
     });
 
@@ -48,6 +49,8 @@ describe('tokenizer', () => {
         const CRLFTokens = tokenize(CRLFSource);
 
         const LFTokens = tokenize(LFSource);
+
+        expect(CRLFTokens.length).toBe(LFTokens.length);
 
         expect(CRLFTokens.length).toBe(CRLFSource.length / 2);
 
@@ -60,5 +63,13 @@ describe('tokenizer', () => {
         for (let i = 0; i < CRLFTokens.length; i++) {
             expect(LFTokens[i].type).toBe('LineDivision');
         }
+    });
+
+    it('should handle numbers with underscores as `NumberLiteral` token', () => {
+        const tokens = tokenize('1_000_000');
+
+        expect(tokens.length).toBe(1);
+
+        expect(tokens[0].type).toBe('NumberLiteral');
     });
 });
