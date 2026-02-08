@@ -29,17 +29,17 @@ export type HighlightCSSClasses = Partial<{
     /**
      *
      *
-     * `pre` class is used for root wrapper element
+     * `pre` class is used for `<pre> </pre>` HTML element in highlighted HTML
      */
     pre: string;
 
     /**
-     * `code` class is used for generated code text element
+     * `code` class is used for `<code> </code>` HTML element in highlighted HTML
      */
     code: string;
 
     /**
-     * `line` class is used for every line of generated code
+     * `line` class is used for every line of code (`<div> </div>` HTML element)
      */
     line: string;
 
@@ -47,12 +47,8 @@ export type HighlightCSSClasses = Partial<{
      *
      */
 
-    /**
-     * `token` class is used for every token of code, even whitespace
-     */
-    token: string;
-
     // trivia
+
     whitespace: string;
     comment: string;
 
@@ -63,13 +59,13 @@ export type HighlightCSSClasses = Partial<{
     operator: string;
 
     // identifiers
-    constantIdentifier: string;
-    mutableIdentifier: string;
+    identifier: string;
 
     // literals
     number: string;
     string: string;
     boolean: string;
+
     /**
      * `sentinel` means an empty value in programming languages (`null`, `undefined`, `NaN`, `nil`).
      *

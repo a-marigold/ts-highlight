@@ -14,6 +14,8 @@ import type { HighlightCSSClasses } from './types';
  *
  *
  *
+ *
+ *
  */
 export const generate = (
     tokens: Token[],
@@ -38,8 +40,6 @@ export const generate = (
         if (currentToken.type === 'WhiteSpace') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.whitespace +
                 '">' +
                 currentToken.value +
@@ -51,13 +51,9 @@ export const generate = (
         }
 
         if (currentToken.type === 'LineDivision') {
-            generated += ' </div>';
+            generated += '</div>';
 
             generated += '<div class="' + cssClasses.line + '">';
-
-            if (pos === tokensLength - 1) {
-                generated += ' </div>';
-            }
 
             pos++;
 
@@ -67,8 +63,6 @@ export const generate = (
         if (currentToken.type === 'Operator') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.operator +
                 '">' +
                 currentToken.value +
@@ -82,9 +76,7 @@ export const generate = (
         if (currentToken.type === 'Identifier') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
-                cssClasses.mutableIdentifier +
+                cssClasses.identifier +
                 '">' +
                 currentToken.value +
                 CLOSED_SPAN;
@@ -97,8 +89,6 @@ export const generate = (
         if (currentToken.type === 'Keyword') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.keyword +
                 '">' +
                 currentToken.value +
@@ -112,8 +102,6 @@ export const generate = (
         if (currentToken.type === 'Instruction') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.instruction +
                 '">' +
                 currentToken.value +
@@ -128,8 +116,6 @@ export const generate = (
         if (currentToken.type === 'StringLiteral') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.string +
                 '">' +
                 currentToken.value +
@@ -143,8 +129,6 @@ export const generate = (
         if (currentToken.type === 'NumberLiteral') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.number +
                 '">' +
                 currentToken.value;
@@ -155,8 +139,6 @@ export const generate = (
                 generated +=
                     CLOSED_SPAN +
                     OPENED_SPAN_WITH_CLASS +
-                    cssClasses.token +
-                    ' ' +
                     cssClasses.bigintChar +
                     '">' +
                     tokens[pos].value;
@@ -172,8 +154,6 @@ export const generate = (
         if (currentToken.type === 'SentinelLiteral') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.sentinel +
                 '">' +
                 currentToken.value +
@@ -187,8 +167,6 @@ export const generate = (
         if (currentToken.type === 'BooleanLiteral') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.boolean +
                 '">' +
                 currentToken.value +
@@ -202,8 +180,6 @@ export const generate = (
         if (currentToken.type === 'Comment') {
             generated +=
                 OPENED_SPAN_WITH_CLASS +
-                cssClasses.token +
-                ' ' +
                 cssClasses.comment +
                 '">' +
                 currentToken.value +
